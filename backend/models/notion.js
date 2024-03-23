@@ -14,6 +14,7 @@ async function createNotionWorkspace(structure) {
     NOTION_API_KEY = 'secret_JdBeWqJJy3tw51DkjnVMluLRBFq89OjdWhVHdvNRzn0';
     // Use the Notion API to create a new workspace using the provided structure
     // This is just a placeholder. You'll need to replace this with the actual API call
+    console.log(structure);
     const response = await axios.post(`${NOTION_API_URL}`, structure, {
         headers: {
             'Authorization': `Bearer ${NOTION_API_KEY}`,
@@ -28,8 +29,9 @@ async function createNotionWorkspace(structure) {
 
 async function processAndCreateWorkspace(pageID, text) {
     // Process the document using the machine learning model
-    const structure = convertParagraphsToJson(text, pageID);
-
+    console.log('we made it here')
+    const structure = convertParagraphsToJson(pageID, text);
+    console.log(structure)
     // Create a new Notion workspace using the structure
     const url = await createNotionWorkspace(pageID, structure);
 

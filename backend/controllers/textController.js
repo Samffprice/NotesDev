@@ -5,7 +5,8 @@ const { convertParagraphsToJson } = require('../models/process');
 async function handleText(req, res) {
     try {
         const document = req.body.text;
-        pageID = '637bdfdaf9524125810889b7ff5f36db'
+        console.log('document', document);
+        pageID = '637bdfdaf9524125810889b7ff5f36db';
         const url = await processAndCreateWorkspace(document, pageID);
 
         res.json({ message: 'Text processed successfully', url });
