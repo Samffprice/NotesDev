@@ -1,0 +1,64 @@
+/*Font Family*/
+@font-face {
+    font-family: 'Roboto';
+    src: url('https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxP.ttf');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*On Start Animation*/
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.banner {
+    animation: slideDown 2s ease-out;
+}
+
+.content {
+    animation: slideUp 2s ease-out;
+}
+
+/*Body CSS*/
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/*Confirm Button CSS*/
+.confirm-button {
+    background-color: green;
+    transition: background-color 0.3s ease;
+}
+
+.confirm-button:hover {
+    background-color: darkgreen;
+}
+
+/*Generate Button CSS*/
+.confirm-button-below {
+    background-color: green;
+    transition: background-color 0.3s ease;
+    width: 1160px; /* Adjust this value to your preference */
+}
+
+/*Text Box CSS*/
+input, textarea {
+    color: black;
+    border: none;
+    border-radius: 0;
+}
