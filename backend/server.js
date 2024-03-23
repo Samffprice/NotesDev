@@ -4,7 +4,7 @@ const cors = require('cors');
 const textRoutes = require('./routes/text');
 const uploadRoutes = require('./routes/upload');
 const app = express();
-const port = 5000;
+const port = 4000;
 
 // Middleware
 app.use(cors());

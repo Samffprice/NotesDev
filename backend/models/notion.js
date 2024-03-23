@@ -1,19 +1,24 @@
 // backend/src/models/notion.js
 const axios = require('axios');
-const { processDocument } = require('./mlModel'); // Import your machine learning model
+//const { processDocument } = require('./mlModel'); // Import your machine learning model
 const Structure = require('./structure');
+const { convertParagraphsToJson } = require('../models/process');
 
 
-const NOTION_API_URL = 'https://api.notion.com/v1'; // Replace with the actual Notion API URL
-const NOTION_API_KEY = process.env.NOTION_API_KEY; // Make sure to set this environment variable
+// const NOTION_API_URL = 'https://api.notion.com/v1/pages/; // Replace with the actual Notion API URL
+// const NOTION_API_KEY = 'secret_JdBeWqJJy3tw51DkjnVMluLRBFq89OjdWhVHdvNRzn0'; // Make sure to set this environment variable
 
 async function createNotionWorkspace(structure) {
+    console.log(structure);
+    NOTION_API_URL = 'https://api.notion.com/v1/pages/';
+    NOTION_API_KEY = 'secret_JdBeWqJJy3tw51DkjnVMluLRBFq89OjdWhVHdvNRzn0';
     // Use the Notion API to create a new workspace using the provided structure
     // This is just a placeholder. You'll need to replace this with the actual API call
-    const response = await axios.post(`${NOTION_API_URL}/workspaces`, structure, {
+    const response = await axios.post(`${NOTION_API_URL}`, structure, {
         headers: {
             'Authorization': `Bearer ${NOTION_API_KEY}`,
-            'Notion-Version': '2021-08-16' // Replace with the actual Notion API version
+            'Content-Type': 'application/json',
+            'Notion-Version': '2022-06-28', // Replace with the actual Notion API version
         }
     });
 
@@ -21,17 +26,18 @@ async function createNotionWorkspace(structure) {
     return response.data.url;
 }
 
-async function processAndCreateWorkspace(document) {
+async function processAndCreateWorkspace(pageID, text) {
     // Process the document using the machine learning model
-    const structure = processDocument(document);
+    const structure = convertParagraphsToJson(text, pageID);
 
     // Create a new Notion workspace using the structure
-    const url = await createNotionWorkspace(structure);
+    const url = await createNotionWorkspace(pageID, structure);
 
     // Return the URL of the new workspace
     return url;
 }
 
 module.exports = {
-    processAndCreateWorkspace
+    processAndCreateWorkspace,
+    createNotionWorkspace
 };
